@@ -7,64 +7,63 @@ N H  ...
 %
 close all
 
-%Estacion 1: Semana Epidemiologica 1 a 13...   Verano
-%Estacion 2: Semana Epidemiologica 14 a 26...  Oto?o 
-%Estacion 3: Semana Epidemiologica 27 a 39...  Invierno 
-%Estacion 4: Semana Epidemiologica 40 a 52...  Primvera 
+%Station 1: Epidemiological Week 1 to 13...   
+%Station 2: Epidemiological Week 14 to 26...   
+%Station 3: Epidemiological Week 27 to 39...  
+%Station 4: Epidemiological Week 40 to 52...   
 
 
-N=1;%100000; %Poblacion
-H=0.03;%9; %Capacidad de Carga Hospitalaria
+N=1;%100000; %Population
+H=0.03;%9; %Hospital Capacity
 
 
-Lambda=7*1/(78*52)*1; %Tasa de ingreso grupo riesgo 
-d=7*1/(78*52)*1; %Tasa de salida grupo riesgo
+Lambda=7*1/(78*52)*1; %Risk group admission rate
+d=7*1/(78*52)*1; %Risk group exit rate
 
-b1=0.257*7; %0.9*2;%0.04*1;%0.11*5;%0.002*1; %tasa de trasmision 1
-b2=0.424*7;%2.968*1;%1.7*1;%0.29*5;%0.7*1; %tasa de trasmision 2
-b3=0.243*7;%1.7*1;%2.968*1;%0.56*5;%0.9*1; %tasa de trasmision 3
-b4=0.202*7;%1.417*1;%0.417*1;%0.19*5;%0.001*1; %tasa de trasmision 4
+b1=0.257*7; %0.9*2;%0.04*1;%0.11*5;%0.002*1; %Transmission rate 1
+b2=0.424*7;%2.968*1;%1.7*1;%0.29*5;%0.7*1; %Transmission rate 2
+b3=0.243*7;%1.7*1;%2.968*1;%0.56*5;%0.9*1; %tTransmission rate 3
+b4=0.202*7;%1.417*1;%0.417*1;%0.19*5;%0.001*1; %Transmission rate 4
 
 
-delta=1/(4/7); %1/delta tiempo promedio incubacion
-g=1/(10/7); %1/g tiempo promedio infeccioso
-psi=1/(230/7); %1/psi tiempo promedio de inmunidad natural
 
-sigma1=0.31;%0.64; %Tasa de Hospitalizacion por VRS
-sigma2=0.19;%0.58; %Tasa de Hospitalizacion por VRS
-sigma3=0.25;%0.55; %Tasa de Hospitalizacion por VRS
-sigma4=0.26;%0.64; %Tasa de Hospitalizacion por VRS
+delta=1/(4/7); %1/delta average latency time
+g=1/(10/7); %1/g average infectious time
+psi=1/(230/7); %1/psi average time of natural immunity
 
-gH=(1/8)*7; %1/gh tiempo promedio hospitalizado
-dH=0.001*0; %Tasa de mortalidad por VRS
+sigma1=0.31;%0.64; %RSV Hospitalization Rate1
+sigma2=0.19;%0.58; %RSV Hospitalization Rate2
+sigma3=0.25;%0.55; %RSV Hospitalization Rate3
+sigma4=0.26;%0.64; %RSV Hospitalization Rate3
 
-l1=0.03; %Tasa de resistencia al cambio
-l2=0.09; %Velocidad de reaccionar
-p=0.5; %Percepci?n del riesgo promedio
+gH=(1/8)*7; %1/gh average hospital stay
+dH=0.001*0; %RSV mortality rate
+
+l1=0.03; %Rate of resistance to change
+l2=0.09; %Reaction speed
+p=0.5; %Average risk perception
 
 
 %vacuna
-bv1=b1/8*1; %tasa de trasmision vacunados 1
-bv2=b2/8*1; %tasa de trasmision vacunados 2
-bv3=b3/8*1; %tasa de trasmision vacunados 3
-bv4=b4/8*1; %tasa de trasmision vacunados 4
+bv1=b1/8*1; %vaccinated transmission rate 1
+bv2=b2/8*1; %vaccinated transmission rate 2
+bv3=b3/8*1; %vaccinated transmission rate 3
+bv4=b4/8*1; %vaccinated transmission rate 4
 
 
-deltav=1/(4/7); %1/deltav tiempo promedio incubacion Vacunados
-gv=1/(10/7); %1/gv tiempo promedio infeccioso vacunados
-psiv=1/(230/7); %1/psiv tiempo promedio de inmunidad natural
+deltav=1/(4/7); %1/deltav average incubation time vaccinated
+gv=1/(10/7); %1/gv average infectious time vaccinated
+psiv=1/(230/7); %1/psiv average time of natural immunity
 
 
-phiv1=(7/120)*0.2*0*0; %Tasa de vacunaci?n
-phiv2=(7/120)*0.2*1*0; %Tasa de vacunaci?n
-phiv3=(7/120)*0.2*1/5*0; %Tasa de vacunaci?n
-phiv4=(7/120)*0.2*0*0; %Tasa de vacunaci?n
-phi=(1/180)*7; %1/phi Tiempo promedio de "inmunidad" por vacunaci?n
+phiv1=(7/120)*0.2*0*0; %Vaccination rate 1
+phiv2=(7/120)*0.2*1*0; %Vaccination rate 2
+phiv3=(7/120)*0.2*1/5*0; %Vaccination rate 3
+phiv4=(7/120)*0.2*0*0; %Vaccination rate 4
+phi=(1/180)*7; %1/phi Average time of "immunity" per vaccination
 
 
-
-%PULSOS
-a=0.0; %aumento en la percepci?n del riesgo
+a=0.0; %increased risk perception
 
 
 
@@ -94,7 +93,7 @@ hold on
     f3 = @(t,x) fR0VRS3(t,x);
     f4 = @(t,x) fR0VRS4(t,x);
    
-   j=13; %largo del salto para estaciones/
+   j=13; %jump length for stations
    salto1=0;
    salto2=j;
    
@@ -114,7 +113,7 @@ for anual = 1:3%1:3
          
        
          
-         if n==1  %Primera estacion (Enero a Marzo semanas epidemiologicas)
+         if n==1  %First period
              
          
         a=0.1;
@@ -136,7 +135,7 @@ for anual = 1:3%1:3
              
              
              
-     elseif n==2 %Segunda periodo (abril a junio semanas epidemiologicas)
+     elseif n==2 %Second period
          
        a=0.0;  
        X0pa0=[y0{1,1}(l0,1),y0{1,1}(l0,2), y0{1,1}(l0,3),y0{1,1}(l0,4),... 
@@ -153,7 +152,7 @@ for anual = 1:3%1:3
          
          
          
-     elseif n==3 %Tercera periodo (julio a septiembre semanas epidemiologicas)
+     elseif n==3 %Third period
          
      a=0.0;    
      X0pa0=[y0{1,1}(l0,1),y0{1,1}(l0,2), y0{1,1}(l0,3),y0{1,1}(l0,4),... 
@@ -173,7 +172,7 @@ for anual = 1:3%1:3
          
                
          
-     elseif n==4 %Cuarta periodo (octubre a diciembre semanas epidemiologicas)
+     elseif n==4 %Fourth period
          
      a=0.0;    
      X0pa0=[y0{1,1}(l0,1),y0{1,1}(l0,2), y0{1,1}(l0,3),y0{1,1}(l0,4),... 
@@ -199,12 +198,12 @@ for anual = 1:3%1:3
     %
 
 
-        %Casos con VRS (I+Iv+H+Hc)
+        %Cases with RSV (I+Iv+H+Hc)
      VRS=y0{1}(:,3)+y0{1}(:,5)+y0{1}(:,6)+y0{1}(:,9);
   %  plot(t,VRS,'linewidth',2,'color','c','LineStyle','-');
 
 
-% Infectados (I+Iv)
+% Infectious (I+Iv)
      AI=y0{1}(:,3)+y0{1}(:,9);
   %  plot(t,AI,'linewidth',2,'color','r','LineStyle','-');
 
@@ -235,7 +234,7 @@ for anual = 1:3%1:3
    
      
      
-    %Infectados Totales(I+Ic+Iv+Ivc)
+    %Infectious total(I+Ic+Iv+Ivc)
      %AItotal=y0{1}(:,4)+y0{1}(:,5)+y0{1}(:,12)+y0{1}(:,13);
    % plot(t,AItotal,'linewidth',2,'color','c','LineStyle','-'); 
      
@@ -252,57 +251,16 @@ xline(156);
 
 
 end   
-%     
-%     
-%     
-%     
-%     
-%     
-% % %linea vertical
-% % exis=360;
-% % igriega1=0;
-% % igriega2=1;
-% % plot([exis, exis], [igriega1, igriega2],'linewidth',1,'color',[1,0.5,1],'LineStyle','--')
-% % 
-% % 
-% % 
-% % exis2=720;
-% % igriega1=0;
-% % igriega2=1;
-% % plot([exis2, exis2], [igriega1, igriega2],'linewidth',1,'color',[1,0.5,1],'LineStyle','--')
-% % 
-% 
-%     
 
-%xlim([0 1080])
-%ylim([0 600])
-%ylim([0 10])
 
  xlabel('Time (Epidemiological week)');
    ylabel('People’s behavior');
- %ylabel('Population');
- % xlabel('Time (Days)');
-% ylabel('Stone fruit trees');
-%ylabel('Infected Grapevines');
-% %ylabel('Collateral effect');  
-% 
-% 
+ 
 %xticks([0 30 60 90 120 150 180])
 %xticks([0 90 180 270 360])
 %xticks([0 90 180 270 360 450 540 630 720])
 xticks([0 13 26 39 52 65 78 91 104 117 130 143 156])
-%xticks([0  180 360 540 720 900 1080])
-%xticklabels({'0', '12' ,'24', '36', '48', '60', '72', '84', '96', '108'})
-% %xticks([0 7 14 21 28 35])
-% %xticklabels({'0','30','60','90','120'})
-% 
-%legend('VRS cases','Infectious','Hospitalized','Hospital collapse')
-%legend('E_G + I_G')
-%legend('V_l','V_L','V_A','V_1','V_2','V_3','F','C_l','C_A','V')
-% %legend('Intoxicated','Health effects')
-% %legend('K_p','K_o','K_c')
-% %legend('S_c', 'D_c')
-% %legend('S_v^m', 'S_v^l', 'I_v^m', 'I_v^l')
+
 % 
  grid on
  box on
