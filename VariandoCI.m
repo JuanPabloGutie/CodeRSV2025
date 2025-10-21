@@ -17,8 +17,8 @@ N=1;%100000; %Population
 H=0.03;%9; %Hospital Capacity
 
 
-Lambda=7*1/(78*52)*1; %Risk group admission rate
-d=7*1/(78*52)*1; %Risk group exit rate
+Lambda=1/728; %Risk group admission rate
+d=1/728; %Risk group exit rate
 
 b1=0.257*7; %0.9*2;%0.04*1;%0.11*5;%0.002*1; %Transmission rate 1
 b2=0.424*7;%2.968*1;%1.7*1;%0.29*5;%0.7*1; %Transmission rate 2
