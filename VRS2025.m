@@ -269,7 +269,7 @@ xticks([0 13 26 39 52 65 78 91 104 117 130 143 156])
 %xticks([0  180 360 540 720 900 1080])
 
 % 
-legend('VRS cases','Infectious','Hospitalized','Hospital collapse')
+legend('RSV cases','Infectious','Hospitalized','Hospital collapse')
 
 % 
  grid on

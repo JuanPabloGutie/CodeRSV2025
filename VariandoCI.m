@@ -273,7 +273,7 @@ end
 xticks([0 52 104 156 208 262 314 366 418 470])
 
 % 
-legend('VRS cases','Infectious','Hospitalized','Hospital collapse')
+legend('RSV cases','Infectious','Hospitalized','Hospital collapse')
 %legend('E_G + I_G')
 
 % 
